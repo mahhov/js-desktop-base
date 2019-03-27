@@ -38,7 +38,7 @@ class KeySenderBase {
 	}
 
 	string(action, string) {
-		this.raw(action, this.stringToKeys(string));
+		this.send([action, ...this.stringToKeys(string)]);
 	}
 
 	// KeySender.strings(
@@ -48,10 +48,6 @@ class KeySenderBase {
 		this.send(actionStringPairs
 			.reduce((prev, [action, string]) =>
 				[...prev, action, ...this.stringToKeys(string)], []));
-	}
-
-	raw(action, keys) {
-		this.send([action, ...keys])
 	}
 }
 
