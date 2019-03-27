@@ -1,29 +1,21 @@
 {
   "name": "clipboard-manager-js",
   "version": "1.0.0",
-  "main": "src/clipboardManager/clipboardManager.js",
-  "scripts": {
-    "start": "electron .",
-    "build": "rm -rf dist; electron-builder .",
-    "linux-desktop-icon-workaround": "mv ~/.local/share/icons/hicolor/0x0/apps/appimagekit-clipboard-manager-js.png ~/.local/share/icons/hicolor/256x256/apps/ && update-icon-caches /usr/share/icons/*",
-    "create-icon": "f() { cd resources/icons; inkscape -z -e $1.png -h 256 $1.svg; convert $1.png -gravity center -background '#0000' -extent 256x256 $1-256.png; }; f",
-    "create-icons": "npm run create-icon fa-copy-regular; npm run create-icon fa-dollar-sign-solid",
-    "refresh-gmail-tokenn": "node src/poePricer/unlocker/refreshGmailToken"
-  },
+  "main": "src/index",
   "keywords": [
-    "clipboard",
-    "manager",
+    "desktop",
+    "app",
     "electron"
   ],
   "author": "mahhov1",
   "license": "ISC",
-  "dependencies": {
-    "bs-better-stream": "^1.9.0",
-    "googleapis": "^38.0.0"
-  },
   "devDependencies": {
-    "electron": "^5.0.0-beta.6",
-    "electron-builder": "^20.39.0"
+    "electron": "^5.0.0-beta.6"
+  },
+  "description": "Helper utilities for creating an electron desktop app.",
+  "dependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -32,18 +24,5 @@
   "bugs": {
     "url": "https://github.com/mahhov/clipboard-manager-js/issues"
   },
-  "homepage": "https://github.com/mahhov/clipboard-manager-js#readme",
-  "description": "",
-  "build": {
-    "asar": false,
-    "artifactName": "${name}-${version}-${os}-${arch}.${ext}",
-    "files": [
-      "resources",
-      "src"
-    ],
-    "icon": "./resources/icons/fa-copy-regular-256.png",
-    "linux": {
-      "target": "AppImage"
-    }
-  }
+  "homepage": "https://github.com/mahhov/clipboard-manager-js#readme"
 }
