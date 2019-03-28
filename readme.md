@@ -25,6 +25,8 @@ keySender.strings([
 ]);
 ```
 
+### appReadyPromise
+
 ### ClipboardListener
 
 ```js
@@ -87,10 +89,6 @@ class MyViewHandle extends ViewHandle {
         }, path.join(__dirname, './view/View.html'));
 	}
 	
-    onClose() {
-    	console.log('closed');
-    }
-    
     onMessage(message){
     	console.log('recieved message from renderer process', message)
     }
@@ -104,6 +102,7 @@ viewHandle.show(3000); // show for n seconds. If 0 or not provided, will keep vi
 viewHandle.hide();
 console.log('view handle is visible?', viewHandle.visible);
 viewHandle.send('hi from main process');
+viewHandle.addWindowListener('blur', () => console.log('window blurred'));
 ```
 
 ### XPromise

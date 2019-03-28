@@ -1,5 +1,6 @@
 module.exports = {
 	keySender: require('./base/keySender/keySender'),
+	appReadyPromise: require('./base/appReadyPromise'),
 	ClipboardListener: require('./base/ClipboardListener'),
 	httpRequest: require('./base/httpRequest'),
 	ScreenMouse: require('./base/ScreenMouse'),

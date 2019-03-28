@@ -8,32 +8,31 @@ class ViewHandle {
 	constructor(windowOptions, windowHtml) {
 		this.windowOptions = windowOptions;
 		this.windowHtml = windowHtml;
-		this.initPromise = this.init();
+		this.window = this.initWindow();
 	}
 
-	async init() {
+	async initWindow() {
 		await appReadyPromise;
 
-		this.window = new BrowserWindow(this.windowOptions);
-		let initPromise = this.window.loadFile(this.windowHtml)
+		let window = new BrowserWindow(this.windowOptions);
+		await window.loadFile(this.windowHtml)
 			.catch(e => console.log('error loading window html:', e));
+
 		ipc.on('window-request', (_, message) => this.onMessage(message));
 
-		app.on('browser-window-blur', () => this.window.hide());
-
-		return initPromise;
+		return window;
 	}
 
-	resize(width, height) {
+	async resize(width, height) {
 		this.width = width;
 		this.height = height;
-		this.window.setSize(width, height);
+		(await this.window).setSize(width, height);
 	}
 
-	move(x, y) {
+	async move(x, y) {
 		this.x = x;
 		this.y = y;
-		this.window.setPosition(x, y);
+		(await this.window).setPosition(x, y);
 	}
 
 	async validateOnScreen() {
@@ -45,45 +44,36 @@ class ViewHandle {
 		this.move(x, y);
 	}
 
-	onClose(request) {
-		/* override */
-	}
-
 	// if duration is falsy, will not auto-hide
-	show(duration) {
+	async show(duration) {
 		this.send({name: 'open'});
+		(await this.window).show();
+		(await this.window).restore();
 		clearInterval(this.timedHide);
-		this.window.show();
-		this.window.restore();
 		if (duration)
 			this.timedHide = setTimeout(this.hide.bind(this), duration);
 	}
 
-	hide() {
-		this.window.minimize();
-		this.window.hide();
+	async hide() {
+		(await this.window).minimize();
+		(await this.window).hide();
 	}
 
 	get visible() {
-
-		return this.window.isVisible();
+		return this.window.then(window => window.isVisible());
 	}
 
 	async send(message) {
-		await this.initPromise;
-		this.window.webContents.send('window-command', message);
+		(await this.window).webContents.send('window-command', message);
 	}
 
 	onMessage(message) {
 		/* override */
-		switch (request.name) {
-			case 'close':
-				this.hide();
-				this.onClose(request);
-				break;
-			default:
-				console.error('Unknown window request:', request);
-		}
+	}
+
+	// viewHandle.addWindowListener('blur', () => {});
+	async addWindowListener(event, handler) {
+		(await this.window).on(event, handler);
 	}
 }
 
