@@ -74,8 +74,25 @@ TrayHelper.createExitTray('icon.png', 'tooltip');
 const {ViewHandle} = require('js-desktop-base');
 
 class MyViewHandle extends ViewHandle {
+	constructor() {
+        super({
+            width: 500,
+            height: 450,
+            frame: false,
+            thickFrame: false,
+            skipTaskbar: true,
+            alwaysOnTop: true,
+            show: false,
+            webPreferences: {nodeIntegration: true}
+        }, path.join(__dirname, './view/View.html'));
+	}
+	
     onClose() {
     	console.log('closed');
+    }
+    
+    onMessage(message){
+    	console.log('recieved message from renderer process', message)
     }
 }
 
