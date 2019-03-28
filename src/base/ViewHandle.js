@@ -17,16 +17,7 @@ class ViewHandle {
 		this.window = new BrowserWindow(this.windowOptions);
 		let initPromise = this.window.loadFile(this.windowHtml)
 			.catch(e => console.log('error loading window html:', e));
-		ipc.on('window-request', (_, request) => {
-			switch (request.name) {
-				case 'close':
-					this.hide();
-					this.onClose(request);
-					break;
-				default:
-					console.error('Unknown window request:', request);
-			}
-		});
+		ipc.on('window-request', (_, message) => this.onMessage(message));
 
 		app.on('browser-window-blur', () => this.window.hide());
 
@@ -81,6 +72,18 @@ class ViewHandle {
 	async send(message) {
 		await this.initPromise;
 		this.window.webContents.send('window-command', message);
+	}
+
+	onMessage(message) {
+		/* override */
+		switch (request.name) {
+			case 'close':
+				this.hide();
+				this.onClose(request);
+				break;
+			default:
+				console.error('Unknown window request:', request);
+		}
 	}
 }
 
