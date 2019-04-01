@@ -1,28 +1,15 @@
+const ScriptBase = require('../ScriptBase');
+
 // SHARED BY LINUX & WINDOWS
-class KeySenderBase {
+class KeySenderBase extends ScriptBase {
 	RELEASE = -1;
 	PRESS = -2;
 	TYPE = -3;
 	COMBO = -4;
 
 	constructor() {
-		this.process = this.initProcess();
+		super();
 		this.keyMap = this.createKeyMap();
-	}
-
-	async initProcess() {
-		let process = await this.spawnProcess();
-		process.stdout.on('data', data => console.log('keySender process output:', data.toString()));
-		process.stderr.on('data', data => console.error('keySender process error:', data.toString()));
-		return process;
-	}
-
-	async spawnProcess() {
-		/* override */
-	}
-
-	async send(arg) {
-		(await this.process).stdin.write(arg + '\n');
 	}
 
 	createKeyMap() {
