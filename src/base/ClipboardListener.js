@@ -1,6 +1,6 @@
 const {clipboard} = require('electron');
-const keySender = require('./osScripts/keySender/keySender');
 const XPromise = require('./XPromise');
+const keySender = require('./osScripts/keySender/keySender');
 
 class ClipboardListener {
 	listeners = [];

@@ -1,5 +1,5 @@
-const appReadyPromise = require('./appReadyPromise');
 const {net} = require('electron');
+const appReadyPromise = require('./appReadyPromise');
 const XPromise = require('./XPromise');
 
 let get = async endpoint => {

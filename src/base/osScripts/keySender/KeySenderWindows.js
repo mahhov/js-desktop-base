@@ -1,8 +1,9 @@
 // WINDOWS ONLY
-const KeySenderBase = require('./KeySenderBase');
+
 const fs = require('fs').promises;
 const path = require('path');
 const {spawn} = require("child_process");
+const KeySenderBase = require('./KeySenderBase');
 
 class KeySenderWindows extends KeySenderBase {
 	async spawnProcess() {

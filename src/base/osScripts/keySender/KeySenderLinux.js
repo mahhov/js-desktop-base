@@ -1,7 +1,8 @@
 // LINUX ONLY
-const KeySenderBase = require('./KeySenderBase'); // todo reorder requires
+
 const path = require('path');
 const {spawn} = require("child_process");
+const KeySenderBase = require('./KeySenderBase');
 
 class KeySenderLinux extends KeySenderBase {
 	spawnProcess() {
