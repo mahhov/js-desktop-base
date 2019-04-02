@@ -1,4 +1,5 @@
 const ScriptBase = require('../ScriptBase');
+const {codes} = require('../keyCodes/keyCodes');
 
 // SHARED BY LINUX & WINDOWS
 class KeySenderBase extends ScriptBase {
@@ -8,31 +9,28 @@ class KeySenderBase extends ScriptBase {
 		this.shortcuts = [];
 
 		this.addListener(({out}) => {
-			if (!out)
-				return;
-			let [key, action] = out.split(' ');
-			key = this.keyMap(key);
-			action = this.isActionDown(action);
-			if (key && action)
-				this.onKey(key, action);
+			let parsed = this.parseScriptOutput(out);
+			if (parsed)
+				this.onKey(this.mapKeyCodeToString(parsed.keyCode), parsed.isDown);
 		});
 	}
 
-	keyMap(key) {
+	parseScriptOutput(line) {
 		/* override */
+		// return {keyCode, isDown};
 	}
 
-	isActionDown(action) {
-		/* override */
+	mapKeyCodeToString(code) {
+		return codes[code];
 	}
 
 	onKey(key, down) {
-		let repeat = this.keyStates[code];
-		this.keyStates[code] = down;
+		let repeat = this.keyStates[key];
+		this.keyStates[key] = down;
 		if (down && !repeat)
 			this.shortcuts
 				.filter(({keys}) => keys.every(key => this.keyStates[key]))
-				.filter(({lastKey}) => lastKey.some(key => key === code))
+				.filter(({lastKey}) => lastKey.some(keyI => keyI === key))
 				.forEach(shortcut => shortcut.handler());
 	}
 

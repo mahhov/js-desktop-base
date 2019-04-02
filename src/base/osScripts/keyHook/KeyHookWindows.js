@@ -11,13 +11,11 @@ class KeyHookWindows extends KeyHookBase {
 		return spawn((await script).toString(), [], {shell: "powershell"});
 	}
 
-	keyMap(key) {
-		console.log('key', key)
-		/* override */
-	}
 
-	isActionDown(action) {
-		return action === 256;
+	parseScriptOutput(line) {
+		let [keyCode, action] = line.split(' ');
+		console.log(key);
+		return {keyCode, isDown: action === 256};
 	}
 }
 
