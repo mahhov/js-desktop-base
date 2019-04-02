@@ -101,7 +101,10 @@ for (let i = 'A'.charCodeAt(), z = 'Z'.charCodeAt(); i <= z; i++)
 	['*', codes.MULTIPLY],
 	['+', codes.ADD],
 	['/', codes.DIVIDE],
+
+	[',', codes.COMMA],
 	['-', codes.DASH],
+	['.', codes.PERIOD],
 ].forEach(([string, code]) => codes[string] = code);
 
 let codeStrings = {};

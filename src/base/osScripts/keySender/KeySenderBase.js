@@ -1,4 +1,5 @@
 const ScriptBase = require('../ScriptBase');
+const {codes} = require('../keyCodes/keyCodes');
 
 // SHARED BY LINUX & WINDOWS
 class KeySenderBase extends ScriptBase {
@@ -9,18 +10,14 @@ class KeySenderBase extends ScriptBase {
 
 	constructor() {
 		super();
-		this.keyMap = this.createKeyMap();
-	}
-
-	createKeyMap() {
-		/* override */
 	}
 
 	stringToKeys(string) {
 		return string
 			.match(/[^{}]|{\w+}/g)
+			.map(a => a.match(/{?([^{}]*)/)[1])
 			.map(c => c.toUpperCase())
-			.map(c => this.keyMap[c])
+			.map(c => codes[c])
 			.filter(a => a);
 	}
 
@@ -39,5 +36,3 @@ class KeySenderBase extends ScriptBase {
 }
 
 module.exports = KeySenderBase;
-
-// todo extract duplicate code with frontWindowTitle to powerShellExecutor
