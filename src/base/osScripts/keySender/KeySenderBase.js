@@ -8,10 +8,6 @@ class KeySenderBase extends ScriptBase {
 	TYPE = -3;
 	COMBO = -4;
 
-	constructor() {
-		super();
-	}
-
 	stringToKeys(string) {
 		return string
 			.match(/[^{}]|{\w+}/g)

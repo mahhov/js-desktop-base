@@ -4,7 +4,7 @@ const fs = require('fs').promises;
 const path = require('path');
 const {spawn} = require("child_process");
 
-class KeySender extends KeySenderBase {
+class KeySenderWindows extends KeySenderBase {
 	async spawnProcess() {
 		let script = fs.readFile(path.join(__dirname, './keySender.ps1'))
 			.catch(e => console.log('unable to read key sender powershell script:', e));
@@ -12,4 +12,4 @@ class KeySender extends KeySenderBase {
 	}
 }
 
-module.exports = KeySender;
+module.exports = KeySenderWindows;
