@@ -14,7 +14,7 @@ class KeyHookWindows extends KeyHookBase {
 
 	parseScriptOutput(line) {
 		let [keyCode, action] = line.split(' ');
-		console.log(key);
+		console.log(keyCode);
 		return {keyCode, isDown: action === 256};
 	}
 }

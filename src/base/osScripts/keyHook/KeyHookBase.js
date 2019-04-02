@@ -9,6 +9,8 @@ class KeySenderBase extends ScriptBase {
 		this.shortcuts = [];
 
 		this.addListener(({out}) => {
+			if (!out)
+				return;
 			let parsed = this.parseScriptOutput(out);
 			if (parsed)
 				this.onKey(this.mapKeyCodeToString(parsed.keyCode), parsed.isDown);
