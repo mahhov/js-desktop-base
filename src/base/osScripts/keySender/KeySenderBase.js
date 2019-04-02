@@ -3,10 +3,13 @@ const {codes} = require('../keyCodes/keyCodes');
 
 // SHARED BY LINUX & WINDOWS
 class KeySenderBase extends ScriptBase {
-	RELEASE = -1;
-	PRESS = -2;
-	TYPE = -3;
-	COMBO = -4;
+	constructor() {
+		super();
+		this.RELEASE = -1;
+		this.PRESS = -2;
+		this.TYPE = -3;
+		this.COMBO = -4;
+	}
 
 	stringToKeys(string) {
 		return string
