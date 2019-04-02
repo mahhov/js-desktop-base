@@ -1,46 +1,56 @@
 let codes = {
-	BACK_SPACE: 8,
+	// whitespace
+	SPACE: 32,
 	TAB: 9,
-	RETURN: 13,
-	ENTER: 14, // todo, should have 1 for return and enter
+	ENTER: 13,
+	BACK_SPACE: 8,
+	DELETE: 46,
+
+	// modifiers
 	SHIFT: 16,
 	CONTROL: 17,
 	ALT: 18,
-	PAUSE: 19,
-	CAPS_LOCK: 20,
-	ESCAPE: 27,
-	SPACE: 32,
-	PAGE_UP: 33,
-	PAGE_DOWN: 34,
-	END: 35,
-	HOME: 36,
-	LEFT: 37,
-	UP: 38,
-	RIGHT: 39,
-	DOWN: 40,
-	PRINTSCREEN: 44,
-	INSERT: 45,
-	DELETE: 46,
-	SEMICOLON: 59,
-	EQUALS: 61,
+	CONTEXT_MENU: 93,
 	L_WIN: 91,
 	R_WIN: 92,
-	CONTEXT_MENU: 93,
-	NUMPAD0: 96,
-	NUMPAD1: 97,
-	NUMPAD2: 98,
-	NUMPAD3: 99,
-	NUMPAD4: 100,
-	NUMPAD5: 101,
-	NUMPAD6: 102,
-	NUMPAD7: 103,
-	NUMPAD8: 104,
-	NUMPAD9: 105,
-	MULTIPLY: 106,
-	ADD: 107,
-	SUBTRACT: 109,
-	DECIMAL: 110,
-	DIVIDE: 111,
+	L_SHIFT: 160,
+	R_SHIFT: 161,
+	L_CONTROL: 162,
+	R_CONTROL: 164,
+
+	// misc
+	ESCAPE: 27,
+	INSERT: 45,
+	CAPS_LOCK: 20,
+	NUM_LOCK: 144,
+	SCROLL_LOCK: 145,
+	PAUSE: 19,
+	PRINT_SCREEN: 44,
+
+	// cursor
+	LEFT: 37,
+	RIGHT: 39,
+	UP: 38,
+	DOWN: 40,
+	HOME: 36,
+	END: 35,
+	PAGE_UP: 33,
+	PAGE_DOWN: 34,
+
+	// symbols
+	COMMA: 188,
+	SEMICOLON: 186,
+	PERIOD: 190,
+	DASH: 189,
+	EQUALS: 187,
+	QUOTE: 222,
+	GRAVE: 192,
+	OPEN_BRACKET: 219,
+	CLOSE_BRACKET: 221,
+	SLASH: 191,
+	BACK_SLASH: 220,
+
+	// function keys
 	F1: 112,
 	F2: 113,
 	F3: 114,
@@ -65,27 +75,7 @@ let codes = {
 	F22: 133,
 	F23: 134,
 	F24: 135,
-	NUM_LOCK: 144,
-	SCROLL_LOCK: 145,
-	L_SHIFT: 160,
-	R_SHIFT: 161,
-	L_CONTROL: 162,
-	R_CONTROL: 164,
-	SEMI_COLON: 186, // todo merge with semicolon?
-	EQUAL_SIGN: 187, // todo merge with equals
-	COMMA: 188,
-	DASH: 189,
-	PERIOD: 190, // todo merge with decimals
-	SLASH: 191,
-	BACK_QUOTE: 192, // todo verify this is grave
-	OPEN_BRACKET: 219,
-	BACK_SLASH: 220,
-	CLOSE_BRACKET: 221,
-	QUOTE: 222,
-	META: 224, // todo what is this
 };
-
-// todo order similar keys and be consistent with _ in compound words
 
 for (let i = 0; i <= 9; i++)
 	codes[i] = i.toString().charCodeAt();
@@ -94,15 +84,22 @@ for (let i = 'A'.charCodeAt(), z = 'Z'.charCodeAt(); i <= z; i++)
 	codes[String.fromCharCode(i)] = i;
 
 [
-	['ENTER', codes.RETURN],
+	['RETURN', codes.ENTER],
 	['CTRL', codes.CONTROL],
-	['*', codes.MULTIPLY],
-	['+', codes.ADD],
-	['/', codes.DIVIDE],
-
+	['L_CTRL', codes.L_CONTROL],
+	['R_CTRL', codes.R_CONTROL],
+	['ESC', codes.ESCAPE],
 	[',', codes.COMMA],
-	['-', codes.DASH],
+	[';', codes.SEMICOLON],
 	['.', codes.PERIOD],
+	['-', codes.DASH],
+	['=', codes.EQUALS],
+	['\'', codes.QUOTE],
+	['`', codes.GRAVE],
+	['[', codes.OPEN_BRACKET],
+	[']', codes.CLOSE_BRACKET],
+	['\\', codes.SLASH],
+	['/', codes.BACK_SLASH],
 ].forEach(([string, code]) => codes[string] = code);
 
 let codeStrings = {};
