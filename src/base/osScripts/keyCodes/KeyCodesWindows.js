@@ -67,7 +67,7 @@ class KeyCodesWindows extends KeyCodesBase {
 			codes[String.fromCharCode(i)] = i;
 
 		// function keys
-		for (let i = 1; i <= 24; i++)
+		for (let i = 1; i <= 12; i++)
 			codes[`F${i}`] = i + 111;
 
 		// rename keys

@@ -11,15 +11,19 @@ class KeyCodesLinux extends KeyCodesBase {
 			DELETE: 119,
 
 			// modifiers
-			MENU: 135, // todo verify
+			SHIFT: [50, 62],
 			L_SHIFT: 50,
 			R_SHIFT: 62,
+			CONTROL: [37, 105],
 			L_CONTROL: 37,
 			R_CONTROL: 105,
+			ALT: [64, 109],
 			L_ALT: 64,
 			R_ALT: 108,
+			SUPER: [133, 134],
 			L_SUPER: 133,
 			R_SUPER: 134,
+			MENU: 135,
 
 			// misc
 			ESCAPE: 9,
@@ -37,8 +41,8 @@ class KeyCodesLinux extends KeyCodesBase {
 			DOWN: 116,
 			HOME: 110,
 			END: 115,
-			// todo PAGE_UP
-			// todo PAGE_DOWN
+			PAGE_UP: 112,
+			PAGE_DOWN: 117,
 
 			// symbols
 			COMMA: 59,
@@ -88,17 +92,13 @@ class KeyCodesLinux extends KeyCodesBase {
 			codes[i] = i + 9;
 
 		// function keys
-		for (let i = 1; i <= 24; i++)
+		for (let i = 1; i <= 10; i++)
 			codes[`F${i}`] = i + 66;
+		codes['F11'] = 95;
+		codes['F12'] = 96;
 
+		// rename keys
 		[
-			// missing modifiers
-			['SHIFT', codes.L_SHIFT],
-			['CONTROL', codes.L_CONTROL],
-			['ALT', codes.L_ALT],
-			['SUPER', codes.L_SUPER],
-
-			// rename keys
 			['RETURN', codes.ENTER],
 			['CTRL', codes.CONTROL],
 			['L_CTRL', codes.L_CONTROL],
@@ -124,4 +124,4 @@ class KeyCodesLinux extends KeyCodesBase {
 module.exports = KeyCodesLinux;
 
 // sources
-// todo insert linux command
+// xmodmap -pke
