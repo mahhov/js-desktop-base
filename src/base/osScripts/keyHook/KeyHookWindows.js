@@ -12,7 +12,6 @@ class KeyHookWindows extends KeyHookBase {
 		return spawn((await script).toString(), [], {shell: "powershell"});
 	}
 
-
 	parseScriptOutput(line) {
 		let [keyCode, action] = line.split(' ');
 		return {keyCode, isDown: action === '256'};

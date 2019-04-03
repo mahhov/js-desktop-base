@@ -1,5 +1,5 @@
 const ScriptBase = require('../ScriptBase');
-const {codes} = require('../keyCodes/keyCodes');
+const keyCodes = require('../keyCodes/keyCodes');
 
 // SHARED BY LINUX & WINDOWS
 class KeySenderBase extends ScriptBase {
@@ -13,7 +13,7 @@ class KeySenderBase extends ScriptBase {
 				return;
 			let parsed = this.parseScriptOutput(out);
 			if (parsed)
-				this.onKey(this.mapKeyCodeToString(parsed.keyCode), parsed.isDown);
+				this.onKey(keyCodes.codeToString(parsed.keyCode), parsed.isDown);
 		});
 	}
 
@@ -22,24 +22,22 @@ class KeySenderBase extends ScriptBase {
 		// return {keyCode, isDown};
 	}
 
-	mapKeyCodeToString(code) {
-		return codes[code];
-	}
-
-	onKey(key, down) {
+	onKey(key, isDown) {
 		let repeat = this.keyStates[key];
-		this.keyStates[key] = down;
-		if (down && !repeat)
+		this.keyStates[key] = isDown;
+		if (isDown && !repeat)
 			this.shortcuts
 				.filter(({keys}) => keys.every(key => this.keyStates[key]))
-				.filter(({lastKey}) => lastKey.some(keyI => keyI === key))
+				.filter(({lastKeys}) => lastKeys.some(keyI => keyI === key))
 				.forEach(shortcut => shortcut.handler());
 	}
 
-	// keys is an array of keys that must all be down.
-	// lastKey is an array of keys, one of which must be the last key to be pressed. The remaining lastKeys need not be pressed, unless also included in keys.
-	addShortcut(keys, lastKey, handler) {
-		this.shortcuts.push({keys, lastKey, handler});
+	// keys is a string of of keys that must all be down.
+	// lastKeys is a string of keys, one of which must be the last key to be pressed. The remaining lastKeys need not be pressed, unless also included in keys.
+	addShortcut(keys, lastKeys, handler) {
+		keys = keyCodes.stringToArray(keys);
+		lastKeys = keyCodes.stringToArray(lastKeys);
+		this.shortcuts.push({keys, lastKeys, handler});
 	}
 }
 

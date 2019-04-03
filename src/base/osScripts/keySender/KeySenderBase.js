@@ -1,5 +1,5 @@
 const ScriptBase = require('../ScriptBase');
-const {codes} = require('../keyCodes/keyCodes');
+const keyCodes = require('../keyCodes/keyCodes');
 
 // SHARED BY LINUX & WINDOWS
 class KeySenderBase extends ScriptBase {
@@ -11,17 +11,8 @@ class KeySenderBase extends ScriptBase {
 		this.COMBO = -4;
 	}
 
-	stringToKeys(string) {
-		return string
-			.match(/[^{}]|{\w+}/g)
-			.map(a => a.match(/{?([^{}]*)/)[1])
-			.map(c => c.toUpperCase())
-			.map(c => codes[c])
-			.filter(a => a);
-	}
-
 	string(action, string) {
-		this.send([action, ...this.stringToKeys(string)]);
+		this.send([action, ...keyCodes.stringToCodes(string)]);
 	}
 
 	// KeySender.strings(
@@ -30,7 +21,7 @@ class KeySenderBase extends ScriptBase {
 	strings(...actionStringPairs) {
 		this.send(actionStringPairs
 			.reduce((prev, [action, string]) =>
-				[...prev, action, ...this.stringToKeys(string)], []));
+				[...prev, action, ...keyCodes.stringToCodes(string)], []));
 	}
 }
 

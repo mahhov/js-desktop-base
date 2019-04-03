@@ -4,4 +4,6 @@ let osKeyHookName = os.platform() === 'linux' ?
 	'./keyCodesLinux' :
 	'./keyCodesWindows';
 
-module.exports = require(osKeyHookName);
+let KeyCodes = require(osKeyHookName);
+
+module.exports = new KeyCodes();
