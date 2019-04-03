@@ -70,26 +70,6 @@ class KeyCodesWindows extends KeyCodesBase {
 		for (let i = 1; i <= 12; i++)
 			codes[`F${i}`] = i + 111;
 
-		// rename keys
-		[
-			['RETURN', codes.ENTER],
-			['CTRL', codes.CONTROL],
-			['L_CTRL', codes.L_CONTROL],
-			['R_CTRL', codes.R_CONTROL],
-			['ESC', codes.ESCAPE],
-			[',', codes.COMMA],
-			[';', codes.SEMICOLON],
-			['.', codes.PERIOD],
-			['-', codes.DASH],
-			['=', codes.EQUALS],
-			['\'', codes.QUOTE],
-			['`', codes.GRAVE],
-			['[', codes.L_BRACKET],
-			[']', codes.R_BRACKET],
-			['\\', codes.SLASH],
-			['/', codes.BACKSLASH],
-		].forEach(([string, code]) => codes[string] = code);
-
 		return codes;
 	}
 }

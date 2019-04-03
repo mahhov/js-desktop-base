@@ -1,10 +1,33 @@
 class KeyCodeBase {
 	constructor() {
 		this.codes = this.getCodes();
+		this.addCodeAliases();
 	}
 
 	getCodes() {
 		/* override */
+	}
+
+	addCodeAliases() {
+		[
+			[' ', 'SPACE'],
+			['RETURN', 'ENTER'],
+			['CTRL', 'CONTROL'],
+			['L_CTRL', 'L_CONTROL'],
+			['R_CTRL', 'R_CONTROL'],
+			['ESC', 'ESCAPE'],
+			[',', 'COMMA'],
+			[';', 'SEMICOLON'],
+			['.', 'PERIOD'],
+			['-', 'DASH'],
+			['=', 'EQUALS'],
+			['\'', 'QUOTE'],
+			['`', 'GRAVE'],
+			['[', 'L_BRACKET'],
+			[']', 'R_BRACKET'],
+			['\\', 'SLASH'],
+			['/', 'BACKSLASH'],
+		].forEach(([alias, code]) => this.codes[alias] = this.codes[code]);
 	}
 
 	// converts a multi key string to a multi key array

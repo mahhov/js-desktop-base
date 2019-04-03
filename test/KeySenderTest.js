@@ -6,8 +6,8 @@ setTimeout(() => {
 	keySender.strings(
 		[keySender.TYPE, 'woah dude'],
 		[keySender.COMBO, '{control}a'],
-		[keySender.COMBO, '{control}c'],
-		[keySender.TYPE, '{right}{enter}{enter}'],
-		[keySender.COMBO, '{control}v'],
+		[keySender.COMBO, '{r_ctrl}c'],
+		[keySender.TYPE, '{right}{ENTER}{enter}'],
+		[keySender.COMBO, '{ctrl}v'],
 	);
-}, 1000);
+}, 3000);
