@@ -1,3 +1,3 @@
 const keyHook = require('../src/base/osScripts/keyHook/keyHook');
 
-keyHook.addShortcut([], ['A', 'B'], () => console.log('a or b pressed'));
+keyHook.addShortcut('', 'AB', () => console.log('a or b pressed'));

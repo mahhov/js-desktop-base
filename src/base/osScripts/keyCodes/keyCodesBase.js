@@ -15,8 +15,8 @@ class KeyCodeBase {
 	}
 
 	stringToArray(string) {
-		return string
-			.match(/[^{}]|{\w+}/g)
+		return (string
+			.match(/[^{}]|{\w+}/g) || [])
 			.map(a => a.match(/{?([^{}]*)/)[1])
 			.map(k => k.toUpperCase())
 			.filter(k => this.codes[k]);
