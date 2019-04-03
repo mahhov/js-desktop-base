@@ -4,10 +4,10 @@ Helper utilities for creating an electron desktop app.
 
 ## Platform support
 
-The `keySender` utility, which sends key presses to the OS has platform specific dependencies: 
-- For windows, this relies on `powershell` and `user32.dll`.
-- For linux, this relies on a `bash` script and `xdotool`.
-- Not tested on mac, but should work with something similar to `xdotool` for mac.
+The `keySender` and `keyHook` utilities, which sends and listen to key presses respectively, have OS specific dependencies: 
+- For windows, this relies on `powershell`, `user32.dll`, and `kernel32.dll`.
+- For linux, this relies on `bash`, `xdotool`, and `xinput`.
+- Not tested on mac, but should work with replacements for `xdotool` and `xinput`.
 
 ## Utilities
 
@@ -23,6 +23,15 @@ keySender.strings([
 	keySender.COMBO, '{ctrl}a',
 	keySender.COMBO, '{ctrl}c',
 ]);
+```
+
+### keyHook
+
+```js
+const {keyHook} = require('js-desktop-base');
+
+keyHook.addShortcut('{ctrl}{l_shift}', 'ab', () =>
+	console.log('Either "a" or "b" was pressed while holding down the left shift and either the left or right ctrl modifiers.'));
 ```
 
 ### appReadyPromise
@@ -57,6 +66,8 @@ ScreenMouse.getScreenBounds().then(({x, y, width, height}) => console.log(x, y, 
 ```
 
 ### ShortcutListener
+
+Note: try using `keyHook` instead.
 
 ```js
 const {ShortcutListener} = require('js-desktop-base');
