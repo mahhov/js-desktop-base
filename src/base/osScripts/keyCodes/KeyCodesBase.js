@@ -27,6 +27,7 @@ class KeyCodeBase {
 	}
 
 	codeToString(code) {
+		console.log(code, '->', this.codeStrings[code]);
 		return this.codeStrings[code];
 	}
 }

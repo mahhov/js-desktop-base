@@ -1,8 +1,8 @@
 const os = require('os');
 
 let osKeyHookName = os.platform() === 'linux' ?
-	'./keyCodesLinux' :
-	'./keyCodesWindows';
+	'./KeyCodesLinux' :
+	'./KeyCodesWindows';
 
 let KeyCodes = require(osKeyHookName);
 
