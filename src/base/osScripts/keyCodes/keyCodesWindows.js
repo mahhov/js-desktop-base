@@ -10,13 +10,13 @@ let codes = {
 	SHIFT: 16,
 	CONTROL: 17,
 	ALT: 18,
-	CONTEXT_MENU: 93,
-	L_WIN: 91,
-	R_WIN: 92,
+	MENU: 93,
 	L_SHIFT: 160,
 	R_SHIFT: 161,
 	L_CONTROL: 162,
 	R_CONTROL: 164,
+	L_SUPER: 91,
+	R_SUPER: 92,
 
 	// misc
 	ESCAPE: 27,
@@ -45,45 +45,31 @@ let codes = {
 	EQUALS: 187,
 	QUOTE: 222,
 	GRAVE: 192,
-	OPEN_BRACKET: 219,
-	CLOSE_BRACKET: 221,
+	L_BRACKET: 219,
+	R_BRACKET: 221,
 	SLASH: 191,
-	BACK_SLASH: 220,
-
-	// function keys
-	F1: 112,
-	F2: 113,
-	F3: 114,
-	F4: 115,
-	F5: 116,
-	F6: 117,
-	F7: 118,
-	F8: 119,
-	F9: 120,
-	F10: 121,
-	F11: 122,
-	F12: 123,
-	F13: 124,
-	F14: 125,
-	F15: 126,
-	F16: 127,
-	F17: 128,
-	F18: 129,
-	F19: 130,
-	F20: 131,
-	F21: 132,
-	F22: 133,
-	F23: 134,
-	F24: 135,
+	BACKSLASH: 220,
 };
 
+// number keys
 for (let i = 0; i <= 9; i++)
 	codes[i] = i.toString().charCodeAt();
 
+// alphabet keys
 for (let i = 'A'.charCodeAt(), z = 'Z'.charCodeAt(); i <= z; i++)
 	codes[String.fromCharCode(i)] = i;
 
+// function keys
+for (let i = 1; i <= 24; i++)
+	codes[`F${i}`] = i + 111;
+
 [
+	// missing modifiers
+	['SUPER', codes.L_SUPER],
+	['L_ALT', codes.ALT],
+	['R_ALT', codes.ALT],
+
+	// rename keys
 	['RETURN', codes.ENTER],
 	['CTRL', codes.CONTROL],
 	['L_CTRL', codes.L_CONTROL],
@@ -96,10 +82,10 @@ for (let i = 'A'.charCodeAt(), z = 'Z'.charCodeAt(); i <= z; i++)
 	['=', codes.EQUALS],
 	['\'', codes.QUOTE],
 	['`', codes.GRAVE],
-	['[', codes.OPEN_BRACKET],
-	[']', codes.CLOSE_BRACKET],
+	['[', codes.L_BRACKET],
+	[']', codes.R_BRACKET],
 	['\\', codes.SLASH],
-	['/', codes.BACK_SLASH],
+	['/', codes.BACKSLASH],
 ].forEach(([string, code]) => codes[string] = code);
 
 let codeStrings = {};
