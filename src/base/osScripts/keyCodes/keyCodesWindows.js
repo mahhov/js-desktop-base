@@ -11,16 +11,19 @@ class KeyCodesWindows extends KeyCodesBase {
 			DELETE: 46,
 
 			// modifiers
-			SHIFT: 16,
-			CONTROL: 17,
-			ALT: 18,
-			MENU: 93,
+			SHIFT: [16, 160, 161],
 			L_SHIFT: 160,
 			R_SHIFT: 161,
+			CONTROL: [17, 162, 163],
 			L_CONTROL: 162,
-			R_CONTROL: 164,
+			R_CONTROL: 163,
+			ALT: [18, 164, 165],
+			L_ALT: 164,
+			R_ALT: 165,
+			SUPER: [91, 92],
 			L_SUPER: 91,
 			R_SUPER: 92,
+			MENU: 93,
 
 			// misc
 			ESCAPE: 27,
@@ -67,13 +70,8 @@ class KeyCodesWindows extends KeyCodesBase {
 		for (let i = 1; i <= 24; i++)
 			codes[`F${i}`] = i + 111;
 
+		// rename keys
 		[
-			// missing modifiers
-			['SUPER', codes.L_SUPER],
-			['L_ALT', codes.ALT],
-			['R_ALT', codes.ALT],
-
-			// rename keys
 			['RETURN', codes.ENTER],
 			['CTRL', codes.CONTROL],
 			['L_CTRL', codes.L_CONTROL],
@@ -102,3 +100,5 @@ module.exports = KeyCodesWindows;
 // https://docs.microsoft.com/en-us/windows/desktop/inputdev/virtual-key-codes
 // http://www.kbdedit.com/manual/low_level_vk_list.html
 // https://www.npmjs.com/package/keycode-js
+
+// todo modifier keys not accurate
