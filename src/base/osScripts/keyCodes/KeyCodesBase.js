@@ -21,15 +21,14 @@ class KeyCodeBase {
 	// e.g. '{Ctrl}a' -> [16, 65]
 	stringToCodes(string) {
 		return this.stringToKeys(string)
-			.map(k => this.codes[k])
-			.map(c => this.keyToCodes(c))
+			.map(k => this.keyToCodes(k))
 			.map(cs => cs[0]);
 	}
 
 	// converts a single key to all its codes
 	// e.g. 'CTRL' -> [17, 162, 163]
 	keyToCodes(string) {
-		return [this.codes[string]].flat();
+		return [this.codes[string]].flat().map(i => String(i));
 	}
 }
 
