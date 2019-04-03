@@ -1,35 +1,41 @@
 class KeyCodeBase {
 	constructor() {
 		this.codes = this.getCodes();
-		this.codeStrings = this.inverseCodes(this.codes);
 	}
 
 	getCodes() {
 		/* override */
 	}
 
-	inverseCodes(codes) {
-		let inverse = {};
-		Object.entries(codes).forEach(([string, code]) => inverse[code] = string);
-		return inverse;
-	}
-
-	stringToArray(string) {
+	// converts a multi key string to a multi key array
+	// e.g. '{Ctrl}a' -> ['CTRL', 'A']
+	stringToKeys(string) {
 		return (string
 			.match(/[^{}]|{\w+}/g) || [])
-			.map(a => a.match(/{?([^{}]*)/)[1])
-			.map(k => k.toUpperCase())
+			.map(s => s.match(/{?([^{}]*)/)[1])
+			.map(s => s.toUpperCase())
 			.filter(k => this.codes[k]);
 	}
 
+	// converts a multi key string to a code sequence
+	// e.g. '{Ctrl}a' -> [16, 65]
 	stringToCodes(string) {
-		return this.stringToArray(string).map(c => this.codes[c]);
+		return this.stringToKeys(string)
+			.map(k => this.codes[k])
+			.map(c => this.keyToCodes(c))
+			.map(cs => cs[0]);
 	}
 
-	codeToString(code) {
-		console.log(code, '->', this.codeStrings[code]);
-		return this.codeStrings[code];
+	// converts a single key to all its codes
+	// e.g. 'CTRL' -> [17, 162, 163]
+	keyToCodes(string) {
+		return [this.codes[string]].flat();
 	}
 }
 
 module.exports = KeyCodeBase;
+
+// -terminology-
+// string: '{Ctrl}a'
+// codes: [100, 34]
+// key: 'L_CTRL'
