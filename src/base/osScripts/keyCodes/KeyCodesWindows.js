@@ -56,6 +56,18 @@ class KeyCodesWindows extends KeyCodesBase {
 			R_BRACKET: 221,
 			SLASH: 191,
 			BACKSLASH: 220,
+
+			// todo numpad numbers
+			NUM_0: -1,
+			NUM_1: -1,
+			NUM_2: -1,
+			NUM_3: -1,
+			NUM_4: -1,
+			NUM_5: -1,
+			NUM_6: -1,
+			NUM_7: -1,
+			NUM_8: -1,
+			NUM_9: -1,
 		};
 
 		// number keys

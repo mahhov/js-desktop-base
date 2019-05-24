@@ -84,6 +84,18 @@ class KeyCodesLinux extends KeyCodesBase {
 			X: 53,
 			Y: 29,
 			Z: 52,
+
+			// numpad numbers
+			NUM_0: 90,
+			NUM_1: 87,
+			NUM_2: 88,
+			NUM_3: 89,
+			NUM_4: 83,
+			NUM_5: 84,
+			NUM_6: 85,
+			NUM_7: 79,
+			NUM_8: 80,
+			NUM_9: 81,
 		};
 
 		// number keys
