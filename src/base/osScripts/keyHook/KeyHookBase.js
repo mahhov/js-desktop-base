@@ -28,14 +28,22 @@ class KeyHookBase extends ScriptBase {
 		let repeat = this.keyStates[keyCode];
 		this.keyStates[keyCode] = isDown;
 
+		let downCodes = Object.entries(this.keyStates)
+			.filter(([_, down]) => down)
+			.map(([keyCode]) => keyCode);
+
 		if (isDown && !repeat)
 			this.shortcuts
 				.filter(({keys}) => keys
 					.every(key => keyCodes.keyToCodes(key)
 						.some(code => this.keyStates[code])))
 				.filter(({lastKeys}) => lastKeys
-					.some(key => keyCodes.keyToCodes(key)
-						.some(code => code === keyCode)))
+					.flatMap(key => keyCodes.keyToCodes(key))
+					.includes(keyCode))
+				.filter(({keys, lastKeys}) => downCodes
+					.every(downCode => [...keys, ...lastKeys]
+						.flatMap(key => keyCodes.keyToCodes(key))
+						.includes(downCode)))
 				.forEach(shortcut => shortcut.handler());
 	}
 
