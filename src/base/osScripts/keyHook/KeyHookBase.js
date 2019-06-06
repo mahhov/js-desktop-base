@@ -2,7 +2,7 @@ const ScriptBase = require('../ScriptBase');
 const keyCodes = require('../keyCodes/keyCodes');
 
 // SHARED BY LINUX & WINDOWS
-class KeySenderBase extends ScriptBase {
+class KeyHookBase extends ScriptBase {
 	constructor() {
 		super();
 		this.keyStates = {};
@@ -49,4 +49,4 @@ class KeySenderBase extends ScriptBase {
 	}
 }
 
-module.exports = KeySenderBase;
+module.exports = KeyHookBase;
