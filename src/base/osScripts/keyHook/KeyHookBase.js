@@ -13,15 +13,14 @@ class KeyHookBase extends ScriptBase {
 				console.error('Error from keyHook script:', err);
 			if (!out)
 				return;
-			let parsed = this.parseScriptOutput(out);
-			if (parsed)
-				this.onKey(parsed.keyCode, parsed.isDown);
+			this.parseScriptOutput(out)
+				.forEach(parsed => this.onKey(parsed.keyCode, parsed.isDown));
 		});
 	}
 
 	parseScriptOutput(line) {
 		/* override */
-		// return {keyCode, isDown};
+		// return [{keyCode, isDown}];
 	}
 
 	onKey(keyCode, isDown) {
