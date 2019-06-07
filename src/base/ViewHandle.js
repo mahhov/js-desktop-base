@@ -47,7 +47,6 @@ class ViewHandle {
 	// if duration is falsy, will not auto-hide
 	async show(duration) {
 		this.send({name: 'open'});
-		(await this.window).minimize();
 		(await this.window).show();
 		(await this.window).restore();
 		clearInterval(this.timedHide);
