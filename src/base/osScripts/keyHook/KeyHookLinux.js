@@ -9,7 +9,9 @@ class KeyHookLinux extends KeyHookBase {
 	}
 
 	parseScriptOutput(line) {
-		let [_, action, keyCode] = line.split(/\s+/);
+		let [_, action, keyCode] = line
+			.split(/\n/).filter(a => a).slice(-1) // last non-empty line
+			.split(/\s+/);
 		return {keyCode, isDown: action === 'press'};
 	}
 }
