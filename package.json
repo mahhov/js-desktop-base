@@ -1,6 +1,6 @@
 {
   "name": "js-desktop-base",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "main": "src/index",
   "keywords": [
     "desktop",
