@@ -7,7 +7,9 @@ Add-Type @"
 	}
 "@
 
-$frontWindow = [UserWindows]::GetForegroundWindow()
-$stringBuilder = New-Object System.Text.StringBuilder 256
-[UserWindows]::GetWindowText($frontWindow, $stringBuilder, 256)
-return $stringBuilder.ToString()
+foreach ($i in $input) {
+    $frontWindow = [UserWindows]::GetForegroundWindow()
+    $stringBuilder = New-Object System.Text.StringBuilder 256
+    $len = [UserWindows]::GetWindowText($frontWindow, $stringBuilder, 256)
+    $stringBuilder.ToString()
+}
