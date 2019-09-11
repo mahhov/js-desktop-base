@@ -25,8 +25,8 @@ class KeyCodeBase {
 			['`', 'GRAVE'],
 			['[', 'L_BRACKET'],
 			[']', 'R_BRACKET'],
-			['\\', 'SLASH'],
-			['/', 'BACKSLASH'],
+			['/', 'SLASH'],
+			['\\', 'BACKSLASH'],
 		].forEach(([alias, code]) => this.codes[alias] = this.codes[code]);
 	}
 
