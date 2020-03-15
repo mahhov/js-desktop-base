@@ -10,6 +10,7 @@ let requires = {
 	TrayHelper: './base/TrayHelper',
 	ViewHandle: './base/ViewHandle',
 	XPromise: './base/XPromise',
+	CustomOsScript: './base/osScripts/ScriptBase',
 };
 
 let singletonRequires = Object.entries(requires).reduce((acc, [name, path]) => Object.defineProperty(acc, name, {
