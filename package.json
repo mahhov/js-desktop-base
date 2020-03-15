@@ -15,7 +15,7 @@
   "description": "Helper utilities for creating an electron desktop app.",
   "dependencies": {},
   "scripts": {
-    "test": "electron test/ViewHandleTest.js"
+    "test": "electron test/TrayHelperTest.js"
   },
   "repository": {
     "type": "git",
