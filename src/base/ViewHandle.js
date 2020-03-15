@@ -32,7 +32,12 @@ class ViewHandle {
 	async move(x, y) {
 		this.x = x;
 		this.y = y;
-		(await this.window).setPosition(x, y);
+		try {
+			(await this.window).setPosition(x, y);
+		} catch (e) {
+			// Electron frequently throws: TypeError: Error processing argument at index 0, conversion failure from NaN
+			console.log('Electron window.setPosition failed.');
+		}
 	}
 
 	async validateOnScreen() {
