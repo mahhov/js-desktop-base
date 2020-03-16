@@ -54,6 +54,10 @@ class KeyHookBase extends ScriptBase {
 		lastKeys = keyCodes.stringToKeys(lastKeys);
 		this.shortcuts.push({keys, lastKeys, handler});
 	}
+
+	clearShortcuts() {
+		this.shortcuts = [];
+	}
 }
 
 module.exports = KeyHookBase;
