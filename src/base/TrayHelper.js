@@ -1,4 +1,4 @@
-const {Menu, Tray} = require('electron');
+const {app, Menu, Tray} = require('electron');
 const appReadyPromise = require('./appReadyPromise');
 
 let trays = [];
@@ -10,7 +10,7 @@ class TrayHelper {
 		tray.setToolTip(tooltip);
 		tray.setContextMenu(Menu.buildFromTemplate([
 			...options, // each option should look like	{label: 'Text', click: () => {}}
-			{label: 'Exit', type: 'normal', role: 'quit'},
+			{label: 'Exit', click: () => app.exit()},
 		]));
 		trays.push(tray); // https://electronjs.org/docs/faq#my-apps-windowtray-disappeared-after-a-few-minutes
 	}
