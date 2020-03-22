@@ -54,7 +54,12 @@ clipboardListener.paste('sets this text as the clipboard data and sends ctrl+v')
 
 ```js
 const {httpRequest} = require('js-desktop-base');
-httpRequest.get('endpoint.com').then(response => console.log(response));
+httpRequest.get('endpoint.com')
+    .then(response => console.log(response));
+httpRequest.get('endpoint.com', {queryParam1: 1, queryParam2: 2})
+    .then(response => console.log(response));
+httpRequest.post('endpoint.com', {data1: 1, data2: 2})
+    .then(response => console.log(response));
 ```
 
 ### ScreenMouse

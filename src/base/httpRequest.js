@@ -1,27 +1,50 @@
-const {net} = require('electron');
-const appReadyPromise = require('./appReadyPromise');
-const XPromise = require('./XPromise');
+const https = require('https');
+const querystring = require('querystring');
 
-let get = async endpoint => {
-	await appReadyPromise;
-	let promise = new XPromise();
-	let request = net.request(endpoint);
-	let responseChunks = [];
-	request.on('response', response => {
-		response.setEncoding('utf8');
-		response.on('data', chunk => responseChunks.push(chunk));
-		response.on('end', () => {
-			let body = responseChunks.join('');
-			try {
-				promise.resolve(JSON.parse(body));
-			} catch (e) {
-				promise.reject(e);
-			}
-		});
-		response.on('error', e => promise.reject(e));
+let get = (endpoint, queryParams = {}) =>
+	new Promise((resolve, reject) => {
+		let queryParamsString = querystring.stringify(queryParams);
+		https.get(queryParamsString ? `${endpoint}?${queryParamsString}` : endpoint, res => {
+			if (res.statusCode < 200 || res.statusCode >= 300)
+				reject(res);
+			let body = [];
+			res.on('data', chunk => body.push(chunk));
+			res.on('end', () => {
+				try {
+					body = JSON.parse(Buffer.concat(body).toString());
+				} catch (e) {
+					reject(e);
+				}
+				resolve(body);
+			});
+		}).on('error', reject);
 	});
-	request.end();
-	return promise;
-};
 
-module.exports = get;
+let post = (endpoint, data) =>
+	new Promise((resolve, reject) => {
+		let req = https.request(endpoint, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				'Content-Length': JSON.stringify(data).length,
+			},
+		}, res => {
+			if (res.statusCode < 200 || res.statusCode >= 300)
+				reject(res.statusCode);
+			let body = [];
+			res.on('data', chunk => body.push(chunk));
+			res.on('end', () => {
+				try {
+					body = JSON.parse(Buffer.concat(body).toString());
+				} catch (e) {
+					reject('failed to parse', e);
+				}
+				resolve(body);
+			});
+		});
+		req.on('error', reject);
+		req.write(JSON.stringify(data));
+		req.end();
+	});
+
+module.exports = {get, post};
