@@ -11,11 +11,10 @@ let get = (endpoint, queryParams = {}) =>
 			res.on('data', chunk => body.push(chunk));
 			res.on('end', () => {
 				try {
-					body = JSON.parse(Buffer.concat(body).toString());
+					resolve(Buffer.concat(body).toString());
 				} catch (e) {
 					reject(e);
 				}
-				resolve(body);
 			});
 		}).on('error', reject);
 	});
@@ -35,11 +34,10 @@ let post = (endpoint, data) =>
 			res.on('data', chunk => body.push(chunk));
 			res.on('end', () => {
 				try {
-					body = JSON.parse(Buffer.concat(body).toString());
+					resolve(Buffer.concat(body).toString());
 				} catch (e) {
 					reject('failed to parse', e);
 				}
-				resolve(body);
 			});
 		});
 		req.on('error', reject);
