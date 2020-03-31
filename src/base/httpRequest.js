@@ -1,21 +1,32 @@
 const https = require('https');
 const querystring = require('querystring');
 
+/*
+	{
+		response {},
+		body [],
+		error [],
+		string '',
+	}
+*/
 let handleResponse = response =>
 	new Promise((resolve, reject) => {
-		let body = [];
-		response.on('data', chunk => body.push(chunk));
+		let ret = {response, body: [], errors: []};
+		response.on('data', chunk => ret.body.push(chunk));
 		response.on('end', () => {
-			let parsed;
 			try {
-				parsed = Buffer.concat(body).toString();
+				ret.string = Buffer.concat(ret.body).toString();
 			} catch (e) {
-				reject('failed to parse', body, e);
+				ret.errors.push('failed to parse body');
+				ret.errors.push(e);
+				reject(ret);
 			}
-			if (response.statusCode < 200 || response.statusCode >= 300)
-				reject(parsed);
-			else
-				resolve(parsed);
+			if (response.statusCode < 200 || response.statusCode >= 300) {
+				ret.errors.push('bad status code');
+				ret.errors.push(response.statusCode);
+				reject(ret);
+			} else
+				resolve(ret);
 		});
 	});
 
