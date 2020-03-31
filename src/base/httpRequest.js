@@ -19,24 +19,25 @@ let handleResponse = response =>
 		});
 	});
 
-let get = (endpoint, queryParams = {}) =>
+let get = (endpoint, queryParams = {}, headers = {}) =>
 	new Promise((resolve, reject) => {
 		let queryParamsString = querystring.stringify(queryParams);
 		let endpointWithParams = queryParamsString ? `${endpoint}?${queryParamsString}` : endpoint;
-		https.get(endpointWithParams,
+		https.get(endpointWithParams, {headers},
 			response => handleResponse(response)
 				.then(resolve)
 				.catch(reject))
 			.on('error', reject);
 	});
 
-let post = (endpoint, data) =>
+let post = (endpoint, data, headers = {}) =>
 	new Promise((resolve, reject) => {
 		let reqOptions = {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
 				'Content-Length': JSON.stringify(data).length,
+				...headers,
 			},
 		};
 		let req = https.request(endpoint, reqOptions,
