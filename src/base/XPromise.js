@@ -7,6 +7,8 @@ class XPromise {
 		});
 		promise.resolve = resolve;
 		promise.reject = reject;
+		promise.done = false;
+		promise.finally(() => promise.done = true);
 		return promise;
 	}
 }
