@@ -27,11 +27,11 @@ class KeyHookBase extends ScriptBase {
 		let repeat = this.keyStates[keyCode];
 		this.keyStates[keyCode] = isDown;
 
-		let downCodes = Object.entries(this.keyStates)
-			.filter(([_, down]) => down)
-			.map(([keyCode]) => keyCode);
+		if (isDown && !repeat) {
+			let downCodes = Object.entries(this.keyStates)
+				.filter(([_, down]) => down)
+				.map(([keyCode]) => keyCode);
 
-		if (isDown && !repeat)
 			this.shortcuts
 				.filter(({keys}) => keys
 					.every(key => keyCodes.keyToCodes(key)
@@ -44,6 +44,7 @@ class KeyHookBase extends ScriptBase {
 						.flatMap(key => keyCodes.keyToCodes(key))
 						.includes(downCode)))
 				.forEach(shortcut => shortcut.handler());
+		}
 	}
 
 	// keys is a key string that must all be down.

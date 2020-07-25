@@ -8,12 +8,12 @@ class KeyHookLinux extends KeyHookBase {
 		return spawn(path.join(__dirname, './keyHook.sh'));
 	}
 
-	parseScriptOutput(line) {
-		return line
+	parseScriptOutput(out) {
+		return out
 			.trim()
-			.split(/\n/)
-			.map(l => {
-				let [_, action, keyCode] = l.split(/\s+/);
+			.split('\n')
+			.map(line => {
+				let [_, action, keyCode] = line.split(/\s+/);
 				return {keyCode, isDown: action === 'press'};
 			});
 	}
