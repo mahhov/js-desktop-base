@@ -18,7 +18,7 @@ class KeyHookWindows extends KeyHookBase {
 			.split('\n')
 			.map(line => {
 				let [keyCode, action] = line.split(' ');
-				return {keyCode, isDown: action === '256' || action === '260'};
+				return {keyCode: Number(keyCode), isDown: action === '256' || action === '260'};
 			});
 	}
 }

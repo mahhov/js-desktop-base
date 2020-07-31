@@ -14,7 +14,7 @@ class KeyHookLinux extends KeyHookBase {
 			.split('\n')
 			.map(line => {
 				let [_, action, keyCode] = line.split(/\s+/);
-				return {keyCode, isDown: action === 'press'};
+				return {keyCode: Number(keyCode), isDown: action === 'press'};
 			});
 	}
 }

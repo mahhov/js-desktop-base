@@ -24,13 +24,16 @@ class KeyHookBase extends ScriptBase {
 	}
 
 	onKey(keyCode, isDown) {
+		if (!keyCodes.codeToKey(keyCode))
+			return;
+
 		let repeat = this.keyStates[keyCode];
 		this.keyStates[keyCode] = isDown;
 
 		if (isDown && !repeat) {
 			let downCodes = Object.entries(this.keyStates)
 				.filter(([_, down]) => down)
-				.map(([keyCode]) => keyCode);
+				.map(([keyCode]) => Number(keyCode));
 
 			this.shortcuts
 				.filter(({keys}) => keys

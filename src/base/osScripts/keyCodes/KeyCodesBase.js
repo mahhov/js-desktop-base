@@ -44,14 +44,19 @@ class KeyCodeBase {
 	// e.g. '{Ctrl}a' -> [16, 65]
 	stringToCodes(string) {
 		return this.stringToKeys(string)
-			.map(k => this.keyToCodes(k))
-			.map(cs => cs[0]);
+			.map(k => this.keyToCodes(k)[0]);
 	}
 
 	// converts a single key to all its codes
 	// e.g. 'CTRL' -> [17, 162, 163]
-	keyToCodes(string) {
-		return [this.codes[string]].flat().map(i => String(i));
+	keyToCodes(key) {
+		return this.codes[key];
+	}
+
+	// converts a code to a key
+	// e.g. 65 -> A
+	codeToKey(code) {
+		return Object.entries(this.codes).find(([_, c]) => c === code)?.[0];
 	}
 }
 
