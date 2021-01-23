@@ -10,6 +10,7 @@ let requires = {
 	TrayHelper: './base/TrayHelper',
 	ViewHandle: './base/ViewHandle',
 	XPromise: './base/XPromise',
+	RateLimitedRetryQueue: './base/RateLimitedRetryQueue',
 	CustomOsScript: './base/osScripts/ScriptBase',
 };
 

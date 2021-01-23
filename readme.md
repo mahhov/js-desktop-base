@@ -133,3 +133,13 @@ if (Math.random() > .5)
  else
     promise.reject('rejected');
 ```
+
+### RateLimitedRetryQueue
+
+```js
+const {RateLimitedRetryQueue} = require('js-desktop-base');
+let queue = new RateLimitedRetryQueue();
+queue.add(asyncGet1);
+queue.add(asyncGet2);
+queue.add(asyncGet3);
+```
