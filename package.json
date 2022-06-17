@@ -10,7 +10,7 @@
   "author": "mahhov1",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^9.1.0"
+    "electron": "^15.5.5"
   },
   "description": "Helper utilities for creating an electron desktop app.",
   "dependencies": {},
