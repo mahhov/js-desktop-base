@@ -7,9 +7,8 @@ const KeySenderBase = require('./KeySenderBase');
 
 class KeySenderWindows extends KeySenderBase {
 	async spawnProcess() {
-		let script = fs.readFile(path.join(__dirname, './keySender.ps1'))
-			.catch(e => console.log('unable to read key sender powershell script:', e));
-		return spawn((await script).toString(), [], {shell: "powershell"});
+		let file = path.join(__dirname, './keySender.ps1');
+		return spawn('powershell.exe', ['-executionpolicy', 'bypass', '-File', file], {shell: true});
 	}
 }
 
