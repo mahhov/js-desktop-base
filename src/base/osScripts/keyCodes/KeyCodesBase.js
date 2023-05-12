@@ -44,7 +44,8 @@ class KeyCodeBase {
 	// e.g. '{Ctrl}a' -> [16, 65]
 	stringToCodes(string) {
 		return this.stringToKeys(string)
-			.map(k => this.keyToCodes(k)[0]);
+			.map(k => this.keyToCodes(k))
+			.map(c => c[0] || c);
 	}
 
 	// converts a single key to all its codes

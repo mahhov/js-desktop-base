@@ -60,7 +60,8 @@ class ViewHandle {
 	}
 
 	async hide() {
-		(await this.window).minimize();
+		// Running either `minimize()` or `hide()` works on gnome linux. Running both hangs for a few seconds. Removing `minimize()` might break this on other platforms.
+		// (await this.window).minimize();
 		(await this.window).hide();
 	}
 
