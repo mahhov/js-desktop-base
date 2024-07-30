@@ -13,8 +13,9 @@ class FrontWindowTitleWindows extends ScriptBase {
 	}
 
 	async spawnProcess() {
-		let file = path.join(__dirname, './frontWindowTitle.ps1');
-		return spawn('powershell.exe', ['-executionpolicy', 'bypass', '-File', file], {shell: true});
+		let script = fs.readFile(path.join(__dirname, './frontWindowTitle.ps1'))
+			.catch(e => console.log('unable to read front window title powershell script:', e));
+		return spawn((await script).toString(), [], {shell: "powershell"});
 	}
 
 	get() {

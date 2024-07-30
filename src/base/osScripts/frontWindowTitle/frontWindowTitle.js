@@ -1,6 +1,9 @@
 const os = require('os');
 
-if (os.platform() === 'linux')
-	module.exports = 'frontWindowTitle not supported on linux';
-else
-	module.exports = new (require('./frontWindowTitleWindows'));
+let osFrontWindowTitleName = os.platform() === 'linux' ?
+	'./frontWindowTitleLinux' :
+	'./frontWindowTitleWindows';
+
+let FrontWindowTitle = require(osFrontWindowTitleName);
+
+module.exports = new FrontWindowTitle();
