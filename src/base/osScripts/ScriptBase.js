@@ -1,18 +1,23 @@
 class ScriptBase {
 	constructor(...processArgs) {
-		this.process = this.initProcess(...processArgs);
+		this.processArgs = processArgs;
+		this.restartProcess();
 	}
 
-	async initProcess(...args) {
-		let process = await this.spawnProcess(...args);
+	async initProcess() {
+		let process = await this.spawnProcess(...this.processArgs);
 		process.stdout.on('data', data => this.listener && this.listener({out: data.toString()}));
 		process.stderr.on('data', data => this.listener && this.listener({err: data.toString()}));
-		process.on('exit', () => this.process = new Promise(() => 0));
+		process.on('exit', () => this.listener && this.listener({exit: true}));
 		return process;
 	}
 
 	async spawnProcess(...args) {
 		/* override */
+	}
+
+	restartProcess() {
+		this.process = this.initProcess();
 	}
 
 	addListener(listener) {
