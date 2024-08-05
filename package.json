@@ -1,6 +1,6 @@
 {
   "name": "js-desktop-base",
-  "version": "5.4.3",
+  "version": "5.4.5",
   "main": "src/index",
   "keywords": [
     "desktop",
