@@ -11,9 +11,18 @@ class XPromise {
 		xPromise.success = false;
 		xPromise.error = false;
 		xPromise.done = false;
-		xPromise.then(() => xPromise.success = true);
-		xPromise.catch(() => xPromise.error = true);
-		xPromise.finally(() => xPromise.done = true);
+		xPromise.then((...args) => {
+			xPromise.success = true;
+			xPromise.successArgs = args;
+		});
+		xPromise.catch((...args) => {
+			xPromise.error = true;
+			xPromise.errorArgs = args;
+		});
+		xPromise.finally((...args) => {
+			xPromise.done = true;
+			xPromise.doneArgs = args;
+		});
 
 		promise?.then(resolve);
 		promise?.catch(reject);
