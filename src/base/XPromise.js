@@ -19,9 +19,8 @@ class XPromise {
 			xPromise.error = true;
 			xPromise.errorArgs = args;
 		});
-		xPromise.finally((...args) => {
+		xPromise.finally(() => {
 			xPromise.done = true;
-			xPromise.doneArgs = args;
 		});
 
 		promise?.then(resolve);
