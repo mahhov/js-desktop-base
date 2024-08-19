@@ -41,13 +41,13 @@ let get = (endpoint, queryParams = {}, headers = {}) =>
 			.on('error', reject);
 	});
 
-let post = (endpoint, data, headers = {}) =>
+let post = (endpoint, body, headers = {}) =>
 	new Promise((resolve, reject) => {
 		let reqOptions = {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
-				'Content-Length': JSON.stringify(data).length,
+				'Content-Length': JSON.stringify(body).length,
 				...headers,
 			},
 		};
@@ -56,8 +56,29 @@ let post = (endpoint, data, headers = {}) =>
 				.then(resolve)
 				.catch(reject));
 		req.on('error', reject);
-		req.write(JSON.stringify(data));
+		req.write(JSON.stringify(body));
 		req.end();
 	});
 
-module.exports = {get, post};
+let post2 = (endpoint, queryParams = {}, body = {}, headers = {}) =>
+	new Promise((resolve, reject) => {
+		let queryParamsString = querystring.stringify(queryParams);
+		let endpointWithParams = queryParamsString ? `${endpoint}?${queryParamsString}` : endpoint;
+		let reqOptions = {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				'Content-Length': JSON.stringify(body).length,
+				...headers,
+			},
+		};
+		let req = https.request(endpointWithParams, reqOptions,
+			response => handleResponse(response)
+				.then(resolve)
+				.catch(reject));
+		req.on('error', reject);
+		req.write(JSON.stringify(body));
+		req.end();
+	});
+
+module.exports = {get, post, post2};
