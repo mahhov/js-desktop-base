@@ -9,11 +9,10 @@
   ],
   "author": "mahhov1",
   "license": "ISC",
-  "devDependencies": {
-    "electron": "^9.1.0"
-  },
   "description": "Helper utilities for creating an electron desktop app.",
-  "dependencies": {},
+  "devDependencies": {
+    "electron": "^31.4.0"
+  },
   "scripts": {
     "test": "electron test/TrayHelperTest.js",
     "postversion": "npm publish && git push"
